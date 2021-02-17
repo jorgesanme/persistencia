@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD26705625DBDD3100BF6AF0 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26705425DBDD3100BF6AF0 /* CollectionViewCell.swift */; };
+		FD26705725DBDD3100BF6AF0 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD26705525DBDD3100BF6AF0 /* CollectionViewCell.xib */; };
 		FD49788325BF600F007924CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD49788225BF600F007924CC /* AppDelegate.swift */; };
 		FD49788525BF600F007924CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD49788425BF600F007924CC /* SceneDelegate.swift */; };
 		FD49788725BF600F007924CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD49788625BF600F007924CC /* ViewController.swift */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FD26705425DBDD3100BF6AF0 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		FD26705525DBDD3100BF6AF0 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		FD49787F25BF600F007924CC /* MyNoteBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyNoteBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD49788225BF600F007924CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD49788425BF600F007924CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 				FDDB07A025CAD03500CABE96 /* HelperDateFormatter.swift */,
 				FD4CFA0225D2A3E500D7D9FF /* DownSampler.swift */,
 				FD4CFA0625D2D13F00D7D9FF /* DetailViewController.swift */,
+				FD26705425DBDD3100BF6AF0 /* CollectionViewCell.swift */,
+				FD26705525DBDD3100BF6AF0 /* CollectionViewCell.xib */,
 			);
 			path = MyNoteBook;
 			sourceTree = "<group>";
@@ -217,6 +223,7 @@
 			files = (
 				FD49789225BF6012007924CC /* LaunchScreen.storyboard in Resources */,
 				FD49788F25BF6012007924CC /* Assets.xcassets in Resources */,
+				FD26705725DBDD3100BF6AF0 /* CollectionViewCell.xib in Resources */,
 				FD49788A25BF600F007924CC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,6 +252,7 @@
 				FD4F061A25C43E750066BD85 /* NoteTableViewController.swift in Sources */,
 				FD4F83CF25C1EA15002D2074 /* NoteManagerObject+CoreDataClass.swift in Sources */,
 				FD53B88B25C2BB5D007A2462 /* NoteBookTableViewController.swift in Sources */,
+				FD26705625DBDD3100BF6AF0 /* CollectionViewCell.swift in Sources */,
 				FD49788325BF600F007924CC /* AppDelegate.swift in Sources */,
 				FD49788D25BF600F007924CC /* MyNoteBook.xcdatamodeld in Sources */,
 				FD49788525BF600F007924CC /* SceneDelegate.swift in Sources */,

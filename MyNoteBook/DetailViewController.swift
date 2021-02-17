@@ -19,6 +19,10 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate & 
     var fetchresultController: NSFetchedResultsController<NSFetchRequestResult>?
     var note: NoteManagerObject?
     var noteID: NSManagedObjectID?
+    var blockOperations: [BlockOperation] = []
+    
+    private var indexPath = IndexPath()
+    
     
     public convenience init(dataController: DataController){
         self.init()
@@ -32,24 +36,36 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate & 
         setupNavigationItem()
         //se asigna titulo a la pantalla
         title = "Details"
-        //1.- Safe unwrappin el Datacontroller y el note
-//        guard let dataController = dataController,
-//                 let note =  note else{return}
-//
-//        //2.- crear NSFetchRequest para la nota
-//        //   buscar la nota
-//        let fetchNote =  NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
-//        let notes = dataController.fetchNotes(using: fetchNote)
-//
-//        //3.- se crea un NSSortDescriptior.
-//        // esto podrias usarse para atraer las photograph
-//        let noteNameSort =  NSSortDescriptor(key: "title", ascending: true)
-//
-        //4.- creamos el NSFetchResultController
-        
-        //5.- Perfom el fetch
+        initializeFetchResultsController()
         
     }
+    func initializeFetchResultsController(){
+        //1. declarar nuestro datacontroller
+        guard let dataController = dataController else {return}
+        guard let note =  note else {return}
+        
+        //2. crear nuestro NSfetchRequest
+        let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "Photograph")
+        
+        //3. setear el NSSortDescriptor. y el predicado de busqueda
+        let photographCreatedAtSortDescriptor =  NSSortDescriptor(key: "imageData", ascending: true)
+        fetchRequest.sortDescriptors = [photographCreatedAtSortDescriptor]
+        fetchRequest.predicate = NSPredicate(format: "note == %@", note)
+                
+        
+        let managedObjectContext =  dataController.viewContext
+        fetchresultController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                           managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchresultController?.delegate = self
+        
+        do{
+            try fetchresultController?.performFetch()
+        }catch{
+            fatalError("cound not find notes->  \(error.localizedDescription)")
+        }
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -58,7 +74,15 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate & 
         
         
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        note?.title =  titleTextField.text
+        note?.noteDescripcion = descriptionTextArea.text
+    }
     
+    private func setupCollection(){
+        imageCollection?.dataSource =  self
+    }
     
     
     func setupNavigationItem(){
@@ -102,14 +126,123 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate & 
     }
 }
 
-//extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        //
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        
-//    }
-//    
-//    
-//}
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let fetchresultController =  fetchresultController{
+            return
+                fetchresultController.sections![section].numberOfObjects
+        }else {
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell =  imageCollection?.dequeueReusableCell(withReuseIdentifier: "photocell", for: indexPath) as? CollectionViewCell
+        guard let photograph = fetchresultController?.object(at: indexPath) as? PhotographMO  else {
+            fatalError("No se puede configuar la celda sin un manager object")
+        }
+        
+        if let imageData = photograph.imageData,
+           let image =  UIImage(data: imageData){
+            cell?.configureView(image: image)
+        }else {
+            cell?.configureView(image: nil)
+        }
+        return cell ?? UICollectionViewCell()
+    }
+    
+    
+}
+
+extension DetailViewController: NSFetchedResultsControllerDelegate{
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        blockOperations.removeAll(keepingCapacity: false)
+    }
+
+    // did change a section. al cambiar una sección
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+            case .insert:
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.imageCollection?.insertSections(NSIndexSet(index: sectionIndex) as IndexSet)
+                        }
+                    })
+                )
+            case .delete:
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.imageCollection?.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet)
+                        }
+                    })
+                )
+            //imageCollection?.deleteSections(IndexSet(integer: sectionIndex))
+            case .move, .update:
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.imageCollection?.reloadSections(NSIndexSet(index: sectionIndex) as IndexSet)
+                        }
+                    })
+                )
+            @unknown default: fatalError()
+        }
+    }
+
+    // did change an object.
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+
+        self.indexPath = newIndexPath ?? IndexPath()
+        switch type {
+            case .insert:
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.imageCollection?.insertItems(at: [newIndexPath!])
+                        }
+                    })
+                )
+            case .delete:
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.imageCollection?.deleteItems(at: [indexPath!])
+                        }
+                    })
+                )
+            case .update:
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.imageCollection?.reloadItems(at: [indexPath!])
+                        }
+                    })
+                )
+            case .move:
+                blockOperations.append(
+                    BlockOperation(block: { [weak self] in
+                        if let this = self {
+                            this.imageCollection?.moveItem(at: indexPath!, to: newIndexPath!)
+                        }
+                    })
+                )
+            @unknown default:
+                fatalError()
+        }
+    }
+
+    // did change content.
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        imageCollection?.performBatchUpdates({ () -> Void in
+            for operation: BlockOperation in self.blockOperations {
+                operation.start()
+            }
+        }, completion: { (finished) -> Void in
+            self.blockOperations.removeAll(keepingCapacity: false)
+        })
+    }
+    
+}
