@@ -89,39 +89,42 @@ class NoteBookTableViewController: UITableViewController {
                 // crear un barButtonItem
                 // darle su funcionalidad
                 // llamar a data controller para cargar los datos
-        //MARK: - Button Create Notebook
-        let dataLoadBarButtonItem =  UIBarButtonItem(title:"Create NoteBook",
+//MARK: - Button Create Notebook
+        let createNoteBookBarButtonItem =  UIBarButtonItem(title:"New NoteBook",
                                                     style: .done,
                                                     target: self,
                                                     action: #selector (loadData))
         
-        navigationItem.rightBarButtonItem = dataLoadBarButtonItem
+        navigationItem.rightBarButtonItem = createNoteBookBarButtonItem
         
         // otro botón  en el nav Item para borrar data.
                 // crear un barButtonItem
                 // darle su funcionalidad
                 // llamar a data controller para cargar los datos
-    //MARK: - Button Detele Data
-        /*
-        let removeDataBarBurronItem =  UIBarButtonItem(title: "Remove Data",
+        
+//MARK: - Button Detele Data
+        let removeDataBarButtonItem =  UIBarButtonItem(title: "RemoveData",
                                                        style: .done,
                                                        target: self,
                                                        action: #selector(removeData))
-        navigationItem.leftBarButtonItem = removeDataBarBurronItem
-    */
-        //una opcion para colocar los Item  (mejor para iconos, no texto)
-       /*
-         navigationItem.rightBarButtonItems = [dataLoadBarButtonItem, removeDataBarBurronItem]
-        */
-
+        //navigationItem.leftBarButtonItem = removeDataBarButtonItem
+ 
+      
+//MARK: - Button create Data
         
+        let loadDataBarButtonItem = UIBarButtonItem(title: "LoadData",
+                                                    style: .done,
+                                                    target: self,
+                                                    action: #selector(loadData))
+
+        //una opcion para colocar los Item  (mejor para iconos, no texto)
+        navigationItem.leftBarButtonItems = [createNoteBookBarButtonItem, removeDataBarButtonItem, loadDataBarButtonItem]
     }
     @objc
     func loadData(){
         
         //se llama al datacontroller para que carge en background
         dataController?.loadNotesInBackground()
-       
         
     }
     

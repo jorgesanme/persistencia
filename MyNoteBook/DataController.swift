@@ -227,7 +227,7 @@ extension DataController {
                                                     noteDescripcion: "Descripcion de la nota",
                                                     createAt: Date())
             
-            note?.photograph = photographMO
+            //note?.photograph = photographMO
             
             // una vez que se termina de cargar en el background la imagen, se le comunica al padre
             // que esta en el main para que lo guarde.
@@ -246,10 +246,13 @@ extension DataController {
                   let imageThumbnailData =  imageThumbnail.pngData() else {
                 return
             }
-               
+            let noteId = note.objectID
+            let copyNote = managedObjetContext.object(with: noteId) as! NotebookManagerObject
             let photographMO = PhotographMO.createPhoto(imageData: imageThumbnailData,
                                                         managedObjectContext: managedObjetContext)
-            note.photograph = photographMO
+            copyNote.photograph = photographMO
+            
+            //note.photograph = photographMO
             
             do{
                 try managedObjetContext.save()

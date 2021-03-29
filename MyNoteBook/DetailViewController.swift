@@ -112,17 +112,15 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate & 
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true) { [weak self] in
+            guard let self = self else {return}
             if let selectedImage =  info[.originalImage] as? UIImage,
                let url =  info[.imageURL] as? URL{
-                
                 // se llama al datacontroller para añadir nuestra nota y la imagen asociada
-                if let note =  self?.note {
-                    self?.dataController?.addPhotograph(with: url, note: note)
+                if let note =  self.note {
+                    self.dataController?.addPhotograph(with: url, note: note)
                 }
-                
             }
-        }
-        
+        }        
     }
 }
 
@@ -142,11 +140,11 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             fatalError("No se puede configuar la celda sin un manager object")
         }
         
-        if let imageData = photograph.imageData,
+        if let imageData = photograph.imageData, //photograph.imageData  o note?.photograph?.imageData
            let image =  UIImage(data: imageData){
             cell?.configureView(image: image)
         }else {
-            cell?.configureView(image: nil)
+            cell?.configureView(image: UIImage(named: "nilPhoto"))
         }
         return cell ?? UICollectionViewCell()
     }

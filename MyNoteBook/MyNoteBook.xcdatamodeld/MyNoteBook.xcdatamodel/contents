@@ -15,7 +15,7 @@
         <relationship name="photograph" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Photograph" inverseName="notebook" inverseEntity="Photograph"/>
     </entity>
     <entity name="Photograph" representedClassName="PhotographMO" syncable="YES" codeGenerationType="category">
-        <attribute name="imageData" attributeType="Binary"/>
+        <attribute name="imageData" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <relationship name="note" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="photograph" inverseEntity="Note"/>
         <relationship name="notebook" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notebook" inverseName="photograph" inverseEntity="Notebook"/>
     </entity>
