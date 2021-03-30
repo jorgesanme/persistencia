@@ -247,12 +247,14 @@ extension DataController {
                 return
             }
             let noteId = note.objectID
-            let copyNote = managedObjetContext.object(with: noteId) as! NotebookManagerObject
+            let copyNote = managedObjetContext.object(with: noteId) as! NoteManagerObject
             let photographMO = PhotographMO.createPhoto(imageData: imageThumbnailData,
                                                         managedObjectContext: managedObjetContext)
-            copyNote.photograph = photographMO
             
-            //note.photograph = photographMO
+            photographMO?.note = copyNote
+            //photographMO.
+            //copyNote.photograph = photographMO
+           
             
             do{
                 try managedObjetContext.save()

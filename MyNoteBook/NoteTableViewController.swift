@@ -216,6 +216,7 @@ class NoteTableViewController: UITableViewController, UIImagePickerControllerDel
             // se le pasa el objeto note y su id para localizarlo segun me convenga
             destination.note = selectedNote
             destination.noteID =  selectedNote.objectID
+            destination.dataController = dataController
             
         }
     }
@@ -240,7 +241,7 @@ class NoteTableViewController: UITableViewController, UIImagePickerControllerDel
         if let notecreatedAt = note.createAt{
             cell.detailTextLabel?.text = HelperDateFormatter.textFrom(date: notecreatedAt)
         }
-        if let photograph =  note.photograph, // relacion a Photograph
+        if let photograph =  note.photograph?.allObjects.first as? PhotographMO , // relacion a Photograph
             let imageData  = photograph.imageData, //el atributo image data (donde posee la info de la imagen)
             let image = UIImage(data: imageData){ // aqui se crea el UIImage necesario para nuestra celda.
             

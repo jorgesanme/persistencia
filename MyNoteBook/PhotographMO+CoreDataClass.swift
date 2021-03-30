@@ -17,6 +17,7 @@ public class PhotographMO: NSManagedObject {
         let photograph =  NSEntityDescription.insertNewObject(forEntityName: "Photograph", into: managedObjectContext) as? PhotographMO
         
         photograph?.imageData = imageData
+        photograph?.createAt = Date()
         return photograph
         
     }

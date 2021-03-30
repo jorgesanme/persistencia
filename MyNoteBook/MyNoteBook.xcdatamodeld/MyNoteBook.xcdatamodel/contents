@@ -5,7 +5,7 @@
         <attribute name="noteDescripcion" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="notebook" maxCount="1" deletionRule="Nullify" destinationEntity="Notebook" inverseName="notes" inverseEntity="Notebook"/>
-        <relationship name="photograph" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Photograph" inverseName="note" inverseEntity="Photograph"/>
+        <relationship name="photograph" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photograph" inverseName="note" inverseEntity="Photograph"/>
     </entity>
     <entity name="Notebook" representedClassName=".NotebookManagerObject" syncable="YES" codeGenerationType="category">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -15,13 +15,14 @@
         <relationship name="photograph" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Photograph" inverseName="notebook" inverseEntity="Photograph"/>
     </entity>
     <entity name="Photograph" representedClassName="PhotographMO" syncable="YES" codeGenerationType="category">
+        <attribute name="createAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="imageData" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
-        <relationship name="note" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="photograph" inverseEntity="Note"/>
+        <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Note" inverseName="photograph" inverseEntity="Note"/>
         <relationship name="notebook" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notebook" inverseName="photograph" inverseEntity="Notebook"/>
     </entity>
     <elements>
         <element name="Note" positionX="-1994.46875" positionY="-10382.74609375" width="128" height="118"/>
         <element name="Notebook" positionX="-2295.30078125" positionY="-10778.08984375" width="186.91796875" height="118"/>
-        <element name="Photograph" positionX="-2334.828125" positionY="-10363.87109375" width="128" height="88"/>
+        <element name="Photograph" positionX="-2334.828125" positionY="-10363.87109375" width="128" height="103"/>
     </elements>
 </model>
