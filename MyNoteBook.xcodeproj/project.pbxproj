@@ -10,7 +10,6 @@
 		FD26705625DBDD3100BF6AF0 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD26705425DBDD3100BF6AF0 /* CollectionViewCell.swift */; };
 		FD49788325BF600F007924CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD49788225BF600F007924CC /* AppDelegate.swift */; };
 		FD49788525BF600F007924CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD49788425BF600F007924CC /* SceneDelegate.swift */; };
-		FD49788725BF600F007924CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD49788625BF600F007924CC /* ViewController.swift */; };
 		FD49788A25BF600F007924CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD49788825BF600F007924CC /* Main.storyboard */; };
 		FD49788D25BF600F007924CC /* MyNoteBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD49788B25BF600F007924CC /* MyNoteBook.xcdatamodeld */; };
 		FD49788F25BF6012007924CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD49788E25BF6012007924CC /* Assets.xcassets */; };
@@ -44,7 +43,6 @@
 		FD49787F25BF600F007924CC /* MyNoteBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyNoteBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD49788225BF600F007924CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD49788425BF600F007924CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FD49788625BF600F007924CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FD49788925BF600F007924CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FD49788C25BF600F007924CC /* MyNoteBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyNoteBook.xcdatamodel; sourceTree = "<group>"; };
 		FD49788E25BF6012007924CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 			children = (
 				FD49788225BF600F007924CC /* AppDelegate.swift */,
 				FD49788425BF600F007924CC /* SceneDelegate.swift */,
-				FD49788625BF600F007924CC /* ViewController.swift */,
 				FD49788825BF600F007924CC /* Main.storyboard */,
 				FD49788E25BF6012007924CC /* Assets.xcassets */,
 				FD49789025BF6012007924CC /* LaunchScreen.storyboard */,
@@ -244,7 +241,6 @@
 				FD49789B25BF62E4007924CC /* DataController.swift in Sources */,
 				FD4B8D0D25C099AB005F47C2 /* NotebookManagerObject.swift in Sources */,
 				FDDB07B825CAF3B600CABE96 /* PhotographMO+CoreDataClass.swift in Sources */,
-				FD49788725BF600F007924CC /* ViewController.swift in Sources */,
 				FD4F061A25C43E750066BD85 /* NoteTableViewController.swift in Sources */,
 				FD4F83CF25C1EA15002D2074 /* NoteManagerObject+CoreDataClass.swift in Sources */,
 				FD53B88B25C2BB5D007A2462 /* NoteBookTableViewController.swift in Sources */,

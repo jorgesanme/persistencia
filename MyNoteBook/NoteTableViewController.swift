@@ -180,8 +180,7 @@ class NoteTableViewController: UITableViewController, UIImagePickerControllerDel
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true) { [weak self] in
-            if let selectedImage =  info[.originalImage] as? UIImage,
-               let url =  info[.imageURL] as? URL{                
+            if let url =  info[.imageURL] as? URL{
                 // se llama al datacontroller para añadir nuestra nota y la imagen asociada
                 if let notebook =  self?.notebook {
                     self?.dataController?.addNotes(with: url, notebook: notebook)

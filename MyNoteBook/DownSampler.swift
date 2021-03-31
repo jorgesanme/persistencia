@@ -9,7 +9,7 @@ import UIKit
 
 enum DownSampler {
     static func downsample(imageAt imageURL: URL,
-                           to pointSize: CGSize? = CGSize(width: 50, height: 50),
+                           to pointSize: CGSize? = CGSize(width: 40, height: 40),
                            scale: CGFloat? = 3) -> UIImage? {
         let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
         guard let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions) else{
